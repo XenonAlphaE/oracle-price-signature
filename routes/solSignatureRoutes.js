@@ -55,7 +55,7 @@ router.post("/price", async (req, res) => {
 
     // Canonical message
     const msg = Buffer.concat([
-      Buffer.from("PRICE_v1"),
+      Buffer.from("SOL_PRICE_v1"),
       tokenSymbol,
       new BN(scaledPrice).toArrayLike(Buffer, "le", 8),
       new BN(timestamp).toArrayLike(Buffer, "le", 8),
@@ -72,9 +72,10 @@ router.post("/price", async (req, res) => {
       scaledPrice,
       timestamp,
       tokenSymbol: tokenSymbol.toString(),
-      msg: msg.toString("base64"),
-      signature: Buffer.from(signature).toString("base64"),
-      pubkey: oracleKeypair.publicKey.toBase58(),
+      msg: Array.from(msg),            // return raw bytes
+      signature: Array.from(signature),// 64-byte sig
+      pubkeyBytes: Array.from(oracleKeypair.publicKey.toBytes()), // [u8; 32]
+      pubkeyBase58: oracleKeypair.publicKey.toBase58()
     };
 
     // Set expiry
