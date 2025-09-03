@@ -4,6 +4,8 @@ docker run -it --rm \
   price-signature-api:1.0
 
 docker buildx version
-docker buildx build -t price-signature-api:1.0  --load .
+docker buildx build -t price-signature-api:latest  --load .
 
-docker buildx build --platform linux/amd64,linux/arm64 -t price-signature-api:1.0  --push .
+docker buildx build --no-cache --platform linux/amd64,linux/arm64 -t ghcr.io/stevehuytrannd92/price-signature-api:latest  --push .
+
+echo "$PAT" | docker login ghcr.io -u stevehuytrannd92 --password-stdin
