@@ -16,6 +16,8 @@ docker run -d \
 
 
 docker pull ghcr.io/stevehuytrannd92/pricesignatureapi
+docker restart pricesignatureapi
+
 
 docker buildx version
 docker buildx build -t pricesignatureapi:latest  --load .
