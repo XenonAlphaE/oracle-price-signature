@@ -5,10 +5,11 @@
     "version": "1.0.0",
     "description": ""
   },
-  "host": "localhost:7001",
+  "host": "btcsymbol.net",
   "basePath": "/",
   "schemes": [
-    "http"
+    "http",
+    "https"
   ],
   "securityDefinitions": {
     "apiKeyAuth": {

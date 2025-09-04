@@ -14,7 +14,7 @@ const doc = {
     version: "1.0.0",
   },
   host: "btcsymbol.net", // Change this for production
-  schemes: ["https"], // Use "https" if needed
+  schemes: ["http", 'https'], // Use "https" if needed
   securityDefinitions: {
     apiKeyAuth: {
       type: 'apiKey',
