@@ -13,8 +13,8 @@ const doc = {
     title: "API Documentation",
     version: "1.0.0",
   },
-  host: "localhost:7001", // Change this for production
-  schemes: ["http"], // Use "https" if needed
+  host: "btcsymbol.net", // Change this for production
+  schemes: ["https"], // Use "https" if needed
   securityDefinitions: {
     apiKeyAuth: {
       type: 'apiKey',
