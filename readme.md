@@ -31,7 +31,11 @@ scp -o StrictHostKeyChecking=no "/Users/steve/Coding/oracle_price_signer/keys/so
 
 scp -o StrictHostKeyChecking=no "/Users/steve/Coding/oracle_price_signer/btcsymbol_net.conf" ubuntu@165.154.235.179:/home/ubuntu/btcsymbol_net.conf
 
+
+**inner vps**
+
 sudo mv /home/ubuntu/btcsymbol_net.conf /etc/nginx/sites-available/btcsymbol_net.conf
 sudo chown root:root /etc/nginx/sites-available/btcsymbol_net.conf
 sudo ln -sf /etc/nginx/sites-available/btcsymbol_net.conf /etc/nginx/sites-enabled/btcsymbol_net.conf
 cat /etc/nginx/sites-available/btcsymbol_net.conf
+sudo nginx -t && sudo systemctl reload nginx
