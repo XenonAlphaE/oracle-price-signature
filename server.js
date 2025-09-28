@@ -19,6 +19,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// ✅ Serve static files from /public
+app.use("/public", express.static(PUBLIC_DIR));
+
 
 app.use('/api/solana', solSignatureRoutes);
 
