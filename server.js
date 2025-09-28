@@ -11,8 +11,11 @@ const solSignatureRoutes = require('./routes/solSignatureRoutes')
 const app = express();
 const PORT = 7001;
 const KEYSTORE_DIR = path.join(process.cwd(),  "keys");
+const PUBLIC_DIR = path.join(process.cwd(), "public");
+
 // Ensure folders exist
 fs.mkdirSync(KEYSTORE_DIR, { recursive: true });
+fs.mkdirSync(PUBLIC_DIR, { recursive: true });
 
 
 app.use(cors());
