@@ -7,6 +7,7 @@ const path = require("path");
 const swaggerUi = require("swagger-ui-express");
 
 const solSignatureRoutes = require('./routes/solSignatureRoutes')
+const ethSignatureRoutes = require('./routes/ethSignatureRoutes')
 
 const app = express();
 const PORT = 7001;
@@ -27,6 +28,7 @@ app.use("/public", express.static(PUBLIC_DIR));
 
 
 app.use('/api/solana', solSignatureRoutes);
+app.use('/api/eth', ethSignatureRoutes);
 
 
 const swaggerOutputPath = path.resolve(process.cwd(), "swagger-output.json");
