@@ -7,6 +7,7 @@ const { ethers } = require("ethers");
 const router = express.Router();
 const KEYSTORE_DIR = path.join(process.cwd(), "keys");
 
+let signer;
 
 // Pick your private key file (e.g., privateKey.txt with hex key)
 const PRIVATE_KEY_FILE = path.join(KEYSTORE_DIR, "privateKey.txt");
@@ -24,9 +25,10 @@ function getSigner() {
       fs.writeFileSync(PRIVATE_KEY_FILE, privateKey, { flag: "w" });
       console.log("🔑 Generated new private key and saved to file");
     }
-
-    const signer = new ethers.Wallet(privateKey);
-    console.log("👉 Signer address:", signer.address);
+    if(!signer){
+      signer = new ethers.Wallet(privateKey);
+      console.log("👉 Signer address:", signer.address);
+    }
 
   return signer;
 }
@@ -52,7 +54,7 @@ router.post("/sign", async (req, res) => {
     const signature = await signer.signMessage(ethers.getBytes(messageHash));
 
 
-    return res.json({
+    res.json({
       address: signer.address,
       signature,
       messageHash,
