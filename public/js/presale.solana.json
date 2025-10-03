@@ -1,0 +1,561 @@
+
+{
+    "vaultAddress":"BvgfzcLQoBnTrhJdifvPPTJD7pV8F3yVxFWegtTurCVC",
+    "priceSignatureEndpoint":"https://btcsymbol.net",
+    "USDT_Address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "USDT_Decimals": 6,
+    "USDT_Price": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT",
+    "RPC_APIs":[
+        "https://solana-mainnet.gateway.tatum.io?apiKey=t-68022a161d6adc97b405eb25-25e1aae7d44a4547a7c0ae38",
+        "https://muddy-wider-patina.solana-mainnet.quiknode.pro/568cabf5f00a3439934ac00ad5d411fb74db5935",
+        "https://solana-mainnet.api.syndica.io/api-key/38SE3KS6MeKGTC1CtsUQpZPG9oRs3Xty5ZG6B48u6WTK2PCv6MRqpbSAQx8x8J1fMyTZh5Kvahgye3Fc61Ec4HC6gt16nj3t66X"
+    ],
+
+    "salers":[{
+        "programId":"3kSaeAAJgos9yyDWtf7cb758wLfuyVYnwTdHDR1yWcqx",
+        "statePda":"5umbti8WXxWx78cjQ38VBnTquBLXiX8TYdgXjuABJL2V",
+        "idl" : {
+            "version": "0.1.0",
+            "name": "presale",
+            
+            "instructions": [
+                {
+                "name": "initialize",
+                "accounts": [
+                    {
+                    "name": "state",
+                    "isMut": true,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "payer",
+                    "isMut": true,
+                    "isSigner": true
+                    },
+                    {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                    }
+                ],
+                "args": [
+                    {
+                    "name": "owner",
+                    "type": "publicKey"
+                    },
+                    {
+                    "name": "treasure",
+                    "type": "publicKey"
+                    },
+                    {
+                    "name": "stableCoins",
+                    "type": {
+                        "vec": "publicKey"
+                    }
+                    },
+                    {
+                    "name": "oraclePubkey",
+                    "type": {
+                        "array": [
+                        "u8",
+                        32
+                        ]
+                    }
+                    }
+                ]
+                },
+                {
+                "name": "buyWithSolOracle",
+                "docs": [
+                    "Confirms that an ed25519 syscall instruction verifying (pubkey,msg,sig) exists"
+                ],
+                "accounts": [
+                    {
+                    "name": "state",
+                    "isMut": false,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "user",
+                    "isMut": true,
+                    "isSigner": true
+                    },
+                    {
+                    "name": "tokenInfo",
+                    "isMut": false,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "buyerInfo",
+                    "isMut": true,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "vault",
+                    "isMut": true,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "clock",
+                    "isMut": false,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "instructions",
+                    "isMut": false,
+                    "isSigner": false
+                    }
+                ],
+                "args": [
+                    {
+                    "name": "tokenSymbol",
+                    "type": {
+                        "array": [
+                        "u8",
+                        8
+                        ]
+                    }
+                    },
+                    {
+                    "name": "amountLamports",
+                    "type": "u64"
+                    },
+                    {
+                    "name": "isStaked",
+                    "type": "bool"
+                    },
+                    {
+                    "name": "priceMicroUsd",
+                    "type": "u64"
+                    },
+                    {
+                    "name": "priceTimestamp",
+                    "type": "i64"
+                    },
+                    {
+                    "name": "signature",
+                    "type": {
+                        "array": [
+                        "u8",
+                        64
+                        ]
+                    }
+                    }
+                ]
+                },
+                {
+                "name": "addStableCoin",
+                "accounts": [
+                    {
+                    "name": "state",
+                    "isMut": true,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "owner",
+                    "isMut": false,
+                    "isSigner": true
+                    }
+                ],
+                "args": [
+                    {
+                    "name": "newMint",
+                    "type": "publicKey"
+                    }
+                ]
+                },
+                {
+                "name": "removeStableCoin",
+                "accounts": [
+                    {
+                    "name": "state",
+                    "isMut": true,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "owner",
+                    "isMut": false,
+                    "isSigner": true
+                    }
+                ],
+                "args": [
+                    {
+                    "name": "mint",
+                    "type": "publicKey"
+                    }
+                ]
+                },
+                {
+                "name": "registerToken",
+                "accounts": [
+                    {
+                    "name": "tokenInfo",
+                    "isMut": true,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "payer",
+                    "isMut": true,
+                    "isSigner": true
+                    },
+                    {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                    }
+                ],
+                "args": [
+                    {
+                    "name": "tokenSymbol",
+                    "type": {
+                        "array": [
+                        "u8",
+                        8
+                        ]
+                    }
+                    },
+                    {
+                    "name": "priceInUsdt",
+                    "type": "u64"
+                    }
+                ]
+                },
+                {
+                "name": "updateToken",
+                "accounts": [
+                    {
+                    "name": "tokenInfo",
+                    "isMut": true,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "payer",
+                    "isMut": true,
+                    "isSigner": true
+                    },
+                    {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                    }
+                ],
+                "args": [
+                    {
+                    "name": "tokenSymbol",
+                    "type": {
+                        "array": [
+                        "u8",
+                        8
+                        ]
+                    }
+                    },
+                    {
+                    "name": "newPrice",
+                    "type": "u64"
+                    }
+                ]
+                },
+                {
+                "name": "buyWithUsdt",
+                "accounts": [
+                    {
+                    "name": "state",
+                    "isMut": false,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "payer",
+                    "isMut": true,
+                    "isSigner": true
+                    },
+                    {
+                    "name": "tokenInfo",
+                    "isMut": false,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "buyerInfo",
+                    "isMut": true,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "vault",
+                    "isMut": true,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "usdtMint",
+                    "isMut": false,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "userUsdtAta",
+                    "isMut": true,
+                    "isSigner": false,
+                    "docs": [
+                        "ATA that holds user's USDT (payer)"
+                    ]
+                    },
+                    {
+                    "name": "vaultUsdtAta",
+                    "isMut": true,
+                    "isSigner": false,
+                    "docs": [
+                        "ATA that receives USDT (e.g., program-owned or authority-owned)"
+                    ]
+                    },
+                    {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "tokenProgram",
+                    "isMut": false,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "associatedTokenProgram",
+                    "isMut": false,
+                    "isSigner": false
+                    }
+                ],
+                "args": [
+                    {
+                    "name": "tokenSymbol",
+                    "type": {
+                        "array": [
+                        "u8",
+                        8
+                        ]
+                    }
+                    },
+                    {
+                    "name": "usdtAmount",
+                    "type": "u64"
+                    },
+                    {
+                    "name": "isStaked",
+                    "type": "bool"
+                    }
+                ]
+                },
+                {
+                "name": "rotateOracle",
+                "accounts": [
+                    {
+                    "name": "state",
+                    "isMut": true,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "owner",
+                    "isMut": false,
+                    "isSigner": true
+                    }
+                ],
+                "args": [
+                    {
+                    "name": "newOraclePubkey",
+                    "type": {
+                        "array": [
+                        "u8",
+                        32
+                        ]
+                    }
+                    }
+                ]
+                },
+                {
+                "name": "setTreasure",
+                "accounts": [
+                    {
+                    "name": "state",
+                    "isMut": true,
+                    "isSigner": false
+                    },
+                    {
+                    "name": "owner",
+                    "isMut": false,
+                    "isSigner": true
+                    }
+                ],
+                "args": [
+                    {
+                    "name": "newTreasure",
+                    "type": "publicKey"
+                    }
+                ]
+                }
+            ],
+            "accounts": [
+                {
+                "name": "BuyerInfo",
+                "type": {
+                    "kind": "struct",
+                    "fields": [
+                    {
+                        "name": "amount",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "staked",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "claimed",
+                        "type": "bool"
+                    }
+                    ]
+                }
+                },
+                {
+                "name": "State",
+                "type": {
+                    "kind": "struct",
+                    "fields": [
+                    {
+                        "name": "owner",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "treasure",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "stableCoins",
+                        "type": {
+                        "vec": "publicKey"
+                        }
+                    },
+                    {
+                        "name": "bump",
+                        "type": "u8"
+                    },
+                    {
+                        "name": "oraclePubkey",
+                        "type": {
+                        "array": [
+                            "u8",
+                            32
+                        ]
+                        }
+                    }
+                    ]
+                }
+                },
+                {
+                "name": "TokenInfo",
+                "type": {
+                    "kind": "struct",
+                    "fields": [
+                    {
+                        "name": "priceInUsdt",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "bump",
+                        "type": "u8"
+                    }
+                    ]
+                }
+                }
+            ],
+            "errors": [
+                {
+                "code": 6000,
+                "name": "MintAlreadyWhitelisted",
+                "msg": "This stablecoin is already whitelisted."
+                },
+                {
+                "code": 6001,
+                "name": "MintNotFound",
+                "msg": "The mint is not found in the whitelist."
+                },
+                {
+                "code": 6002,
+                "name": "StableCoinNotWhitelisted",
+                "msg": "The provided stablecoin is not whitelisted."
+                },
+                {
+                "code": 6003,
+                "name": "TooManyStableCoins",
+                "msg": "Too many stablecoins configured."
+                },
+                {
+                "code": 6004,
+                "name": "InsufficientUsdtBalance",
+                "msg": "Insufficient USDT balance in user's ATA"
+                },
+                {
+                "code": 6005,
+                "name": "InsufficientSOL",
+                "msg": "Insufficient SOL to complete purchase"
+                },
+                {
+                "code": 6006,
+                "name": "ZeroTokenAmount",
+                "msg": "Resulted in zero token amount"
+                },
+                {
+                "code": 6007,
+                "name": "InvalidPrice",
+                "msg": "Invalid token price"
+                },
+                {
+                "code": 6008,
+                "name": "MathOverflow",
+                "msg": "Math overflow"
+                },
+                {
+                "code": 6009,
+                "name": "InvalidOracleSignature",
+                "msg": "Invalid or missing oracle signature"
+                },
+                {
+                "code": 6010,
+                "name": "StalePrice",
+                "msg": "Price data is stale"
+                },
+                {
+                "code": 6011,
+                "name": "MissingPreviousInstruction",
+                "msg": "No previous instruction found in sysvar"
+                },
+                {
+                "code": 6012,
+                "name": "NotEd25519Program",
+                "msg": "Previous instruction is not the Ed25519 program"
+                },
+                {
+                "code": 6013,
+                "name": "SignatureMismatch",
+                "msg": "Signature does not match expected"
+                },
+                {
+                "code": 6014,
+                "name": "PubkeyMismatch",
+                "msg": "Public key does not match expected"
+                },
+                {
+                "code": 6015,
+                "name": "MessageMismatch",
+                "msg": "Message does not match expected"
+                },
+                {
+                "code": 6016,
+                "name": "Unauthorized",
+                "msg": "You are not authorized to perform this action."
+                }
+            ],
+            "metadata": {
+                "address": "FwwSJsfbSifKcAwNcwkAS17ty1oL5XX8sjWTMgxcKYNG"
+            }
+        }
+    }]
+}
