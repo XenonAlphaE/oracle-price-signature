@@ -31,6 +31,7 @@ scp -o StrictHostKeyChecking=no "/Users/steve/Coding/oracle_price_signer/keys/so
 
 scp -o StrictHostKeyChecking=no "/Users/steve/Coding/oracle_price_signer/btcsymbol_net.conf" ubuntu@165.154.235.179:/home/ubuntu/btcsymbol_net.conf
 
+docker exec -it pricesignatureapi bash
 
 **inner vps**
 

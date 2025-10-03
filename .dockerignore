@@ -8,3 +8,6 @@ dist
 coverage
 .env
 keys
+.vscode
+btcsymbol_net.conf
+readme.md
