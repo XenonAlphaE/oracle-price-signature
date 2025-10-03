@@ -29,6 +29,10 @@ echo "$PAT" | docker login ghcr.io -u stevehuytrannd92 --password-stdin
 ssh -o StrictHostKeyChecking=no ubuntu@165.154.235.179 "mkdir -p /home/ubuntu/signer/keys" && \
 scp -o StrictHostKeyChecking=no "/Users/steve/Coding/oracle_price_signer/keys/solana-oracle-keypair.json" ubuntu@165.154.235.179:/home/ubuntu/signer/keys/solana-oracle-keypair.json
 
+ssh -o StrictHostKeyChecking=no ubuntu@165.154.235.179 "mkdir -p /home/ubuntu/signer/keys" && \
+scp -o StrictHostKeyChecking=no "/Users/steve/Coding/oracle_price_signer/keys/privateKey.txt" ubuntu@165.154.235.179:/home/ubuntu/signer/keys/privateKey.txt
+
+
 scp -o StrictHostKeyChecking=no "/Users/steve/Coding/oracle_price_signer/btcsymbol_net.conf" ubuntu@165.154.235.179:/home/ubuntu/btcsymbol_net.conf
 
 docker exec -it pricesignatureapi bash
