@@ -1,6 +1,5 @@
-
 {
-    "vaultAddress":"BvgfzcLQoBnTrhJdifvPPTJD7pV8F3yVxFWegtTurCVC",
+    "vaultAddress":"7hVM75V5oar7YBFeegd79idT8esPaTtZRzKPoKS9d6wK",
     "priceSignatureEndpoint":"https://btcsymbol.net",
     "USDT_Address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
     "USDT_Decimals": 6,
@@ -12,8 +11,8 @@
     ],
 
     "salers":[{
-        "programId":"3kSaeAAJgos9yyDWtf7cb758wLfuyVYnwTdHDR1yWcqx",
-        "statePda":"5umbti8WXxWx78cjQ38VBnTquBLXiX8TYdgXjuABJL2V",
+        "programId":"7cN23ivKRaQxaHNJFhNju2sGcB67sUhBd1fYdrgktTSM",
+        "statePda":"2KPh8Nn2NKscaT68WBL3T8Rst7A379KVbjhTzQ1e1Cn3",
         "idl" : {
             "version": "0.1.0",
             "name": "presale",
