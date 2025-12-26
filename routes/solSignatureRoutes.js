@@ -5,9 +5,10 @@ const nacl = require("tweetnacl");
 const axios = require("axios");
 const BN = require("bn.js");
 const { Keypair } = require("@solana/web3.js");
+const encodePhase = require('../utils/encodePhase')
 
 const router = express.Router();
-const KEYSTORE_DIR = path.join(process.cwd(), "keys");
+const KEYSTORE_DIR = path.join(process.cwd(), "seeds");
 const solana_price_url = "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT";
 
 
@@ -40,8 +41,13 @@ router.post("/price", async (req, res) => {
 
 
     // Load oracle keypair
-    const oracleFilePath = path.join(KEYSTORE_DIR, "solana-oracle-keypair.json");
-    const oracleSecret = new Uint8Array(JSON.parse(fs.readFileSync(oracleFilePath)));
+    const oracleFilePath = path.join(KEYSTORE_DIR, "solseed.txt");
+    const encrypted = fs.readFileSync(oracleFilePath).toString()
+    const decrypted = encodePhase.decryptPhase(
+      process.env.ENCODE_SALT,
+      encrypted
+    );
+    const oracleSecret = new Uint8Array(JSON.parse(decrypted));
     const oracleKeypair = Keypair.fromSecretKey(oracleSecret);
 
 

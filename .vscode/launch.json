@@ -12,6 +12,14 @@
                 "<node_internals>/**"
             ],
             "type": "node"
+        }, {
+            "name": "Start Seeds SOL",
+            "program": "${workspaceFolder}/keys/convertSeedsSOL.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
         },
         {
             "type": "node",
