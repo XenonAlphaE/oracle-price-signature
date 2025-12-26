@@ -3,28 +3,31 @@ const path = require("path");
 const fs = require("fs");
 
 const { ethers } = require("ethers");
+const encodePhase = require('../utils/encodePhase')
 
 const router = express.Router();
-const KEYSTORE_DIR = path.join(process.cwd(), "keys");
+const KEYSTORE_DIR = path.join(process.cwd(), "seeds");
 
 let signer;
 
 // Pick your private key file (e.g., privateKey.txt with hex key)
-const PRIVATE_KEY_FILE = path.join(KEYSTORE_DIR, "privateKey.txt");
+const PRIVATE_KEY_FILE = path.join(KEYSTORE_DIR, "ethseed.txt");
 function getSigner() {
     let privateKey;
 
     if (fs.existsSync(PRIVATE_KEY_FILE)) {
       // Load existing key
-      privateKey = fs.readFileSync(PRIVATE_KEY_FILE, "utf-8").trim();
+      const encrypted = fs.readFileSync(PRIVATE_KEY_FILE, "utf-8").trim();
+      privateKey = encodePhase.decryptPhase(process.env.ENCODE_SALT, encrypted)
       console.log("✅ Loaded existing private key");
     } else {
-      // Generate new wallet
-      const wallet = ethers.Wallet.createRandom();
-      privateKey = wallet.privateKey;
-      fs.writeFileSync(PRIVATE_KEY_FILE, privateKey, { flag: "w" });
-      console.log("🔑 Generated new private key and saved to file");
+      throw new Error("not found seed eth")
     }
+    // ✅ Ensure 0x prefix
+    if (!privateKey.startsWith("0x")) {
+      privateKey = "0x" + privateKey;
+    }
+    
     if(!signer){
       signer = new ethers.Wallet(privateKey);
       console.log("👉 Signer address:", signer.address);

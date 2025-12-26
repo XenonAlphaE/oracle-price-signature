@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "description": ""
   },
-  "host": "btcsymbol.net",
+  "host": "localhost:7001",
   "basePath": "/",
   "schemes": [
     "http",
