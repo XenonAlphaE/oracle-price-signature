@@ -8,6 +8,7 @@ docker run -it --rm \
 docker run -d \
   --name pricesignatureapi \
   --restart unless-stopped \
+  -e ENCODE_SALT="your-strong-random-salt" \
   -p 7001:7001 \
   -v /home/ubuntu/signer/keys:/usr/src/app/keys \
   ghcr.io/stevehuytrannd92/pricesignatureapi:latest
