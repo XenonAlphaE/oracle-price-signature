@@ -39,8 +39,8 @@ docker exec -it pricesignatureapi bash
 
 **inner vps**
 
-sudo mv /home/ubuntu/btcsymbol_net.conf /etc/nginx/sites-available/btcsymbol_net.conf
-sudo chown root:root /etc/nginx/sites-available/btcsymbol_net.conf
-sudo ln -sf /etc/nginx/sites-available/btcsymbol_net.conf /etc/nginx/sites-enabled/btcsymbol_net.conf
+sudo mv /home/ubuntu/btcsymbol_net.conf /etc/nginx/sites-available/btcsymbol_net.conf -- remove, it handle by nginx
+sudo chown root:root /etc/nginx/sites-available/btcsymbol_net.conf -- remove, it handle by nginx
+sudo ln -sf /etc/nginx/sites-available/btcsymbol_net.conf /etc/nginx/sites-enabled/btcsymbol_net.conf -- remove, it handle by nginx
 cat /etc/nginx/sites-available/btcsymbol_net.conf
 sudo nginx -t && sudo systemctl reload nginx
