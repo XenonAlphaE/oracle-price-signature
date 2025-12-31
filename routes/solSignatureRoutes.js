@@ -5,7 +5,7 @@ const nacl = require("tweetnacl");
 const axios = require("axios");
 const BN = require("bn.js");
 const { Keypair } = require("@solana/web3.js");
-const encodePhase = require('../utils/encodePhase')
+const encodePhase = require('../utils/encodePhase');
 
 const router = express.Router();
 const KEYSTORE_DIR = path.join(process.cwd(), "seeds");
@@ -24,6 +24,7 @@ let cachedResult = null;
 let cacheExpiry = 0; // epoch seconds
 const CACHE_TTL = 10; // seconds
 
+let cacheSolPrice = 0
 
 router.post("/price", async (req, res) => {
   const { symbol = "SOL", decimals = 6 } = req.body; // allow symbol input, default to SOL
@@ -94,5 +95,105 @@ router.post("/price", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+
+router.post("/sign", async (req, res) => {
+  // const { symbol = "SOL", decimals = 6 } = req.body; // allow symbol input, default to SOL
+  
+  const { key , tokenPrice, buyAmount, deltaStake } = req.body; // allow symbol input, default to SOL
+
+  // const tokenSymbol = toPaddedSymbol(symbol); // e.g. "SOL_____" length = 8
+  let solPrice = cacheSolPrice;
+  try {
+    const nowSec = Math.floor(Date.now() / 1000);
+
+    // If cache still valid, return cached result
+    if (nowSec > cacheExpiry && solPrice === 0) {
+      cacheExpiry = nowSec + CACHE_TTL;
+      const { data } = await axios.get(solana_price_url);
+      const priceUsd = parseFloat(data.price); // e.g., 25.123
+      const scale = Math.pow(10, 6);
+      solPrice = Math.floor(priceUsd * scale);
+      cacheSolPrice = solPrice
+    }
+
+    // if(payment==='SOL'){
+    //     let expectedBuyAmount = 0
+    //     expectedBuyAmount  = solPrice  / tokenPrice 
+
+    //     const lowerBound = (expectedBuyAmount * 95) / 100;
+    //     const upperBound = (expectedBuyAmount * 105) / 100;
+
+    //     if(!(
+    //         buyAmount >= lowerBound && buyAmount <= upperBound
+    //     ))
+    //       {
+
+    //         throw new Error("Buy amount out of tolerance");
+    //       }
+
+
+    // }
+
+
+
+    // Load oracle keypair
+    const oracleFilePath = path.join(KEYSTORE_DIR, "solseed.txt");
+    const encrypted = fs.readFileSync(oracleFilePath).toString()
+    const decrypted = encodePhase.decryptPhase(
+      process.env.ENCODE_SALT,
+      encrypted
+    );
+    const oracleSecret = new Uint8Array(JSON.parse(decrypted));
+    const oracleKeypair = Keypair.fromSecretKey(oracleSecret);
+
+    const timestamp = nowSec;
+    const keyBytes = Buffer.from(key); // key must be array length 32
+
+    // Canonical message
+    // const msg = Buffer.concat([
+    //   Buffer.from("ORCALE_SOLANA"),     // 13 bytes
+    //   keyBytes,                              // PDA bytes
+    //   new BN(solPrice).toArrayLike(Buffer, "le", 8),
+    //   new BN(tokenPrice).toArrayLike(Buffer, "le", 8),
+    //   new BN(buyAmount).toArrayLike(Buffer, "le", 8),
+    //   new BN(deltaStake).toArrayLike(Buffer, "le", 8),
+    //   new BN(timestamp).toArrayLike(Buffer, "le", 8),
+    // ]);
+
+
+    const msg = Buffer.concat([
+      Buffer.from("ORCALE_SOLANA"),     // 13 bytes
+      keyBytes,                              // PDA bytes
+      new BN(solPrice).toArrayLike(Buffer, "le", 8),
+      new BN(tokenPrice).toArrayLike(Buffer, "le", 8),
+      new BN(buyAmount).toArrayLike(Buffer, "le", 8),
+      new BN(deltaStake).toArrayLike(Buffer, "le", 8),
+      new BN(timestamp).toArrayLike(Buffer, "le", 8),
+    ]);
+
+
+    // Sign with oracle
+    const signature = nacl.sign.detached(msg, oracleKeypair.secretKey);
+
+    // Build result
+    const result = {
+      key,
+      timestamp,
+      solPrice,
+      msg: Array.from(msg),            // return raw bytes
+      signature: Array.from(signature),// 64-byte sig
+      pubkeyBytes: Array.from(oracleKeypair.publicKey.toBytes()), // [u8; 32]
+      pubkeyBase58: oracleKeypair.publicKey.toBase58()
+    };
+
+    res.json(result);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 module.exports = router;
