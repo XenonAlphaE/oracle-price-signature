@@ -39,7 +39,7 @@ scp -o StrictHostKeyChecking=no "/Users/steve/Coding/oracle_price_signer/btcsymb
 docker exec -it pricesignatureapi bash
 
 **inner vps**
-docker ps stop pricesignatureapi
+docker stop pricesignatureapi
 docker rm pricesignatureapi
 docker rmi ghcr.io/stevehuytrannd92/pricesignatureapi
 docker run -d \
@@ -49,7 +49,7 @@ docker run -d \
   -p 7001:7001 \
   -v /home/ubuntu/signer/keys:/usr/src/app/keys \
   ghcr.io/stevehuytrannd92/pricesignatureapi:latest
-  
+
 sudo mv /home/ubuntu/btcsymbol_net.conf /etc/nginx/sites-available/btcsymbol_net.conf -- remove, it handle by nginx
 sudo chown root:root /etc/nginx/sites-available/btcsymbol_net.conf -- remove, it handle by nginx
 sudo ln -sf /etc/nginx/sites-available/btcsymbol_net.conf /etc/nginx/sites-enabled/btcsymbol_net.conf -- remove, it handle by nginx
