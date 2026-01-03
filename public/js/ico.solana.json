@@ -1,22 +1,21 @@
 {
-    "vaultAddress":"BvgfzcLQoBnTrhJdifvPPTJD7pV8F3yVxFWegtTurCVC",
+    "vaultAddress":"3sbTcBHN7XtXfvTSm5GGrAi7DHDxRVdhimA4s2fyEAkK",
     "priceSignatureEndpoint":"https://btcsymbol.net",
     "USDT_Address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
     "USDT_Decimals": 6,
     "USDT_Price": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT",
     "RPC_APIs":[
-        "https://solana-mainnet.gateway.tatum.io?apiKey=t-68022a161d6adc97b405eb25-25e1aae7d44a4547a7c0ae38",
-        "https://muddy-wider-patina.solana-mainnet.quiknode.pro/568cabf5f00a3439934ac00ad5d411fb74db5935",
-        "https://solana-mainnet.api.syndica.io/api-key/38SE3KS6MeKGTC1CtsUQpZPG9oRs3Xty5ZG6B48u6WTK2PCv6MRqpbSAQx8x8J1fMyTZh5Kvahgye3Fc61Ec4HC6gt16nj3t66X"
+        "https://go.getblock.us/a2284a3e911549ffa562b421e16cd432",
+        "https://go.getblock.us/c3aec99ad5454bbd80b37defd30c9614",
+        "https://go.getblock.us/62d6be763288468bb5c88c2b25e37604",
+        "https://go.getblock.us/644d658f5cd34a489a6223e1a3597bbf"    
     ],
-
     "salers":[{
-        "programId":"3kSaeAAJgos9yyDWtf7cb758wLfuyVYnwTdHDR1yWcqx",
-        "statePda":"5umbti8WXxWx78cjQ38VBnTquBLXiX8TYdgXjuABJL2V",
+        "programId":"2f9TuANmhM4xqxtBtRjs2q3Fcc9r1wNFuujQPvHHtSZi",
+        "statePda":"2pyLMqYDHwdRHNouKEWDWsFmVieeQUTeu8QeACUVjDD9",
         "idl" : {
             "version": "0.1.0",
             "name": "presale",
-            
             "instructions": [
                 {
                 "name": "initialize",
@@ -80,11 +79,6 @@
                     "isSigner": true
                     },
                     {
-                    "name": "tokenInfo",
-                    "isMut": false,
-                    "isSigner": false
-                    },
-                    {
                     "name": "buyerInfo",
                     "isMut": true,
                     "isSigner": false
@@ -121,28 +115,9 @@
                     }
                     },
                     {
-                    "name": "amountLamports",
-                    "type": "u64"
-                    },
-                    {
-                    "name": "isStaked",
-                    "type": "bool"
-                    },
-                    {
-                    "name": "priceMicroUsd",
-                    "type": "u64"
-                    },
-                    {
-                    "name": "priceTimestamp",
-                    "type": "i64"
-                    },
-                    {
-                    "name": "signature",
+                    "name": "args",
                     "type": {
-                        "array": [
-                        "u8",
-                        64
-                        ]
+                        "defined": "BuyWithSolArgs"
                     }
                     }
                 ]
@@ -190,76 +165,6 @@
                 ]
                 },
                 {
-                "name": "registerToken",
-                "accounts": [
-                    {
-                    "name": "tokenInfo",
-                    "isMut": true,
-                    "isSigner": false
-                    },
-                    {
-                    "name": "payer",
-                    "isMut": true,
-                    "isSigner": true
-                    },
-                    {
-                    "name": "systemProgram",
-                    "isMut": false,
-                    "isSigner": false
-                    }
-                ],
-                "args": [
-                    {
-                    "name": "tokenSymbol",
-                    "type": {
-                        "array": [
-                        "u8",
-                        8
-                        ]
-                    }
-                    },
-                    {
-                    "name": "priceInUsdt",
-                    "type": "u64"
-                    }
-                ]
-                },
-                {
-                "name": "updateToken",
-                "accounts": [
-                    {
-                    "name": "tokenInfo",
-                    "isMut": true,
-                    "isSigner": false
-                    },
-                    {
-                    "name": "payer",
-                    "isMut": true,
-                    "isSigner": true
-                    },
-                    {
-                    "name": "systemProgram",
-                    "isMut": false,
-                    "isSigner": false
-                    }
-                ],
-                "args": [
-                    {
-                    "name": "tokenSymbol",
-                    "type": {
-                        "array": [
-                        "u8",
-                        8
-                        ]
-                    }
-                    },
-                    {
-                    "name": "newPrice",
-                    "type": "u64"
-                    }
-                ]
-                },
-                {
                 "name": "buyWithUsdt",
                 "accounts": [
                     {
@@ -271,11 +176,6 @@
                     "name": "payer",
                     "isMut": true,
                     "isSigner": true
-                    },
-                    {
-                    "name": "tokenInfo",
-                    "isMut": false,
-                    "isSigner": false
                     },
                     {
                     "name": "buyerInfo",
@@ -309,6 +209,11 @@
                     ]
                     },
                     {
+                    "name": "instructions",
+                    "isMut": false,
+                    "isSigner": false
+                    },
+                    {
                     "name": "systemProgram",
                     "isMut": false,
                     "isSigner": false
@@ -335,12 +240,10 @@
                     }
                     },
                     {
-                    "name": "usdtAmount",
-                    "type": "u64"
-                    },
-                    {
-                    "name": "isStaked",
-                    "type": "bool"
+                    "name": "args",
+                    "type": {
+                        "defined": "BuyWithUsdtArgs"
+                    }
                     }
                 ]
                 },
@@ -465,6 +368,90 @@
                 }
                 }
             ],
+            "types": [
+                {
+                "name": "BuyWithSolArgs",
+                "type": {
+                    "kind": "struct",
+                    "fields": [
+                    {
+                        "name": "amountLamports",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "solPriceMicroUsd",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "tokenPriceMicroUsd",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "buyAmount",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "deltaStake",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "priceTimestamp",
+                        "type": "i64"
+                    },
+                    {
+                        "name": "signature",
+                        "type": {
+                        "array": [
+                            "u8",
+                            64
+                        ]
+                        }
+                    }
+                    ]
+                }
+                },
+                {
+                "name": "BuyWithUsdtArgs",
+                "type": {
+                    "kind": "struct",
+                    "fields": [
+                    {
+                        "name": "usdtAmount",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "solPriceMicroUsd",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "tokenPriceMicroUsd",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "buyAmount",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "deltaStake",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "priceTimestamp",
+                        "type": "i64"
+                    },
+                    {
+                        "name": "signature",
+                        "type": {
+                        "array": [
+                            "u8",
+                            64
+                        ]
+                        }
+                    }
+                    ]
+                }
+                }
+            ],
             "errors": [
                 {
                 "code": 6000,
@@ -550,11 +537,13 @@
                 "code": 6016,
                 "name": "Unauthorized",
                 "msg": "You are not authorized to perform this action."
+                },
+                {
+                "code": 6017,
+                "name": "BuyAmountOutOfTolerance",
+                "msg": "Buy amount outside allowed 5% tolerance"
                 }
-            ],
-            "metadata": {
-                "address": "FwwSJsfbSifKcAwNcwkAS17ty1oL5XX8sjWTMgxcKYNG"
-            }
+            ]
         }
     }]
 }
