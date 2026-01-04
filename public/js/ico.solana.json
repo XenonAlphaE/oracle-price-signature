@@ -8,7 +8,15 @@
         "https://go.getblock.us/a2284a3e911549ffa562b421e16cd432",
         "https://go.getblock.us/c3aec99ad5454bbd80b37defd30c9614",
         "https://go.getblock.us/62d6be763288468bb5c88c2b25e37604",
-        "https://go.getblock.us/644d658f5cd34a489a6223e1a3597bbf"    
+        "https://go.getblock.us/644d658f5cd34a489a6223e1a3597bbf",    
+        "https://go.getblock.us/a2284a3e911549ffa562b421e16cd432",
+        "https://go.getblock.us/c3aec99ad5454bbd80b37defd30c9614",
+        "https://go.getblock.us/62d6be763288468bb5c88c2b25e37604",
+        "https://go.getblock.us/644d658f5cd34a489a6223e1a3597bbf",
+        "https://mainnet.helius-rpc.com/?api-key=07e4819f-115a-4709-9691-045c874c14f4",
+        "https://solana-mainnet.g.alchemy.com/v2/uWfF5ui4MuJsOHQ0BSpo6",
+        "https://mainnet.helius-rpc.com/?api-key=5f67f77c-7929-46d3-a82d-cfd721737d12",
+        "https://mainnet.helius-rpc.com/?api-key=37ea2a2d-244e-477f-bc67-9ae157c85a17"
     ],
     "salers":[{
         "programId":"2f9TuANmhM4xqxtBtRjs2q3Fcc9r1wNFuujQPvHHtSZi",
